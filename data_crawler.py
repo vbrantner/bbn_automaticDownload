@@ -10,7 +10,7 @@ def getToday():
   return today
 
 def getTodayDir(today):
-  todayDirPath = './{}/'.format(str(today))
+  todayDirPath = '/{}/'.format(str(today))
   return todayDirPath
 
 def main():
@@ -51,6 +51,8 @@ def main():
     temp_filialeSales = requests.get(httpLink, auth=(user, password))
     todayDirPath = getTodayDir(getToday())
     filePathName = todayDirPath + str(url) + '_' + str(getToday()) + '.json'
+    if not os.path.exists(todayDirPath):
+        os.makedirs(todayDirPath)
     with open (filePathName, 'w') as outfile:
       json.dump(temp_filialeSales.json(), outfile)
       print('saved' + filePathName)
